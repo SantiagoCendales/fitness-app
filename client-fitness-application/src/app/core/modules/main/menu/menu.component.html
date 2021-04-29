@@ -1,0 +1,14 @@
+<div class="menu-container">
+  <div style="display: flex; flex-direction: column; justify-content: flex-start">
+    <div class="menu-nav-container" style="overflow: auto;">
+      <div class="nav-item" *ngFor="let link of allLinks" [routerLink]="link.path"
+        routerLinkActive="nav-item-active" matRipple [matRippleCentered]="false">
+        <div style="text-align: center;">
+          <mat-icon class="icon">{{link.icon}}</mat-icon>
+          <h5>{{ link.name }}</h5>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

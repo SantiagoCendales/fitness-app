@@ -1,0 +1,20 @@
+<div class="login-container">
+  <div class="login-section">
+    <h2>Inicia sesión en <span style="font-weight: 600; color: #ff7f61;">FitnessApp</span></h2>
+    <form class="form" [formGroup]="loginForm">
+      <div class="inputs-container">
+        <mat-form-field class="input-stl" floatLabel="never">
+          <mat-label>Correo Electrónico</mat-label>
+          <input matInput formControlName="email">
+        </mat-form-field>
+        <mat-form-field class="input-stl" floatLabel="never">
+          <mat-label>Contraseña</mat-label>
+          <input type="password" matInput formControlName="password">
+        </mat-form-field>
+      </div>
+      <br>
+      <button [disabled]="loginForm.invalid" mat-raised-button color="primary" (click)="login()">Ingresar</button>
+      <a (click)="goToRegister()">¿Olvidaste tu contraseña?</a>
+    </form>
+  <div>
+</div>

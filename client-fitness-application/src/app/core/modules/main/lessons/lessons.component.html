@@ -1,0 +1,8 @@
+<h2 style="margin-left: 15px;">Clases</h2>
+<div class="lessons-container">
+  <div *ngFor="let lesson of lessonsList" class="lesson-card">
+    <h2>{{lesson.name}}</h2>
+    <p>Cupos disponible: {{lesson.places}}</p>
+    <button mat-raised-button color="primary" (click)="bookClass(lesson)">Reservar clase</button>
+  </div>
+</div>
