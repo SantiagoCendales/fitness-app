@@ -47,7 +47,6 @@ export class UserService {
       const url = `${this.baseUrl}/assign-lesson`;
       const headers = new HttpHeaders().set('Content-Type', 'application/json');
       const result = await this.httpClient.post(url, body, { headers }).toPromise() as any;
-      localStorage.setItem('authToken', result.data.token);
       return result;
     } catch (err) {
       throw err;

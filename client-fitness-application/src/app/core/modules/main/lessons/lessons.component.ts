@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { LessonsService } from '@app/core/services/restful/lessons.service';
 import { UserService } from '@app/core/services/restful/user.service';
 
@@ -14,14 +15,15 @@ export class LessonsComponent implements OnInit {
 
   constructor(
     private lessonsService: LessonsService,
-    private userService: UserService
+    private userService: UserService,
+    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
     this.getLessons();
   }
 
-  async getLessons() {
+  async getLessons(): Promise<void> {
     try {
       const {success, data, message } = await this.lessonsService.getLessons();
       console.log(data);
@@ -33,13 +35,15 @@ export class LessonsComponent implements OnInit {
 
   async bookClass(lesson): Promise<void> {
     try {
-      console.log(lesson);
-      this.userService.assignLesson({
+      await this.userService.assignLesson({
         lesson_id: lesson.id,
         date: lesson.date
       });
+      this.getLessons();
+      this.snackBar.open('Successfully created reservation', '', {duration: 3000});
     } catch (err) {
-      console.log();
+      this.snackBar.open(err.error.message, '', {duration: 3000, verticalPosition: 'top'});
+      console.log(err);
     }
   }
 
