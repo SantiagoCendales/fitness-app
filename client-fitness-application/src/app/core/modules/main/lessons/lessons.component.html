@@ -3,6 +3,7 @@
   <div *ngFor="let lesson of lessonsList" class="lesson-card">
     <h2>{{lesson.name}}</h2>
     <p>Cupos disponible: {{lesson.places}}</p>
+    <h6>{{lesson.date}}</h6>
     <button mat-raised-button color="primary" (click)="bookClass(lesson)">Reservar clase</button>
   </div>
 </div>

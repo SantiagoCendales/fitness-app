@@ -2,5 +2,7 @@
 <div class="lessons-container">
   <div *ngFor="let userLesson of userLessonsList" class="lesson-card">
     <h2>{{userLesson.name}}</h2>
+    <p>Tu clase esta programada para el</p>
+    <h6>{{userLesson.date}}</h6>
   </div>
 </div>
