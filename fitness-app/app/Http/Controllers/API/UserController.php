@@ -68,6 +68,7 @@ class UserController extends BaseController
         $user = auth('api')->user();
         $lesson = Lesson::find($request->lesson_id);
         $input = $request->all();
+        $user_lessons = $user->lessons;
         $validator = Validator::make($input, [
             'lesson_id' => 'required',
             'date' => 'required',
@@ -77,8 +78,12 @@ class UserController extends BaseController
         } elseif ($lesson->places == 0) {
             return $this->sendError('Sold out reservations');
         }
+        foreach ($user_lessons as $user_lesson) {
+            if($user_lesson->pivot->lesson_id == $request->lesson_id) {
+                return $this->sendError('You are already registered in the lesson');
+            }
+        }
         $user->lessons()->attach($request->lesson_id, ['date'=> $request->date]);
-        $user_lessons = $user->lessons;
         $lesson->places -= 1;
         $lesson->save();
 
