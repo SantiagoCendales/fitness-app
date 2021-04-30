@@ -66,13 +66,22 @@ class UserController extends BaseController
     public function storeUserLessons(Request $request)
     {
         $user = auth('api')->user();
-        // $user = User::find($user_id);
+        $lesson = Lesson::find($request->lesson_id);
+        $input = $request->all();
+        $validator = Validator::make($input, [
+            'lesson_id' => 'required',
+            'date' => 'required',
+        ]);
+        if($validator->fails()){
+            return $this->sendError('Validation Error.', $validator->errors());       
+        } elseif ($lesson->places == 0) {
+            return $this->sendError('Sold out reservations');
+        }
         $user->lessons()->attach($request->lesson_id, ['date'=> $request->date]);
         $user_lessons = $user->lessons;
-        $lesson = Lesson::find($request->lesson_id);
         $lesson->places -= 1;
         $lesson->save();
 
-        return $user_lessons; 
+        return $lesson; 
     }
 }
