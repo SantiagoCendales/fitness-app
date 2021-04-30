@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\API\BaseController as BaseController;
 use App\Models\User;
+use App\Models\Lesson;
 use Illuminate\Support\Facades\Auth;
 use Validator;
 
@@ -68,6 +69,10 @@ class UserController extends BaseController
         // $user = User::find($user_id);
         $user->lessons()->attach($request->lesson_id, ['date'=> $request->date]);
         $user_lessons = $user->lessons;
-        return $user_lessons;
+        $lesson = Lesson::find($request->lesson_id);
+        $lesson->places -= 1;
+        $lesson->save();
+
+        return $user_lessons; 
     }
 }
